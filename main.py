@@ -46,7 +46,7 @@ def get_input_params(request, key):
         print('get_input_params - Could not get input parameter')
         return None
 
-def main(request=None): 
+def main(request): 
     process = CrawlerProcess(settings={
         "FEEDS": {
             "items.json": {"format": "json"},
@@ -64,5 +64,3 @@ def main(request=None):
     process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
-
-main()
