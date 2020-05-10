@@ -1,5 +1,5 @@
 Scrapy
 extruct
-bs4
+beautifulsoup4
 extraction
 nested-lookup
