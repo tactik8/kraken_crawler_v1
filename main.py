@@ -10,7 +10,6 @@ from extractors import extract_all
 fullrecords = []
 
 def store_records(record):
-
     fullrecords.append(record)
     print('Number of records: ', len(fullrecords))
     return
@@ -65,5 +64,5 @@ def main(request=None):
     process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
-    
+
 main()
