@@ -11,15 +11,12 @@ fullrecords = []
 
 def store_records(record):
 
-
     fullrecords.append(record)
     print('Number of records: ', len(fullrecords))
     return
 
-
 class DemoSpider(CrawlSpider):
     name = "demo"
-
     #allowed_domains = ["instrumart.com"]
     #start_urls = ["https://www.instrumart.com/products/24474/rosemount-3051c-smart-pressure-transmitter"]
     rules = ( 
@@ -36,7 +33,6 @@ class DemoSpider(CrawlSpider):
         record = extract_all(response.url, response.text)
         #print(json.dumps(record, indent=4))
         store_records(record)
-
 
 def get_input_params(request, key):
     # Retrive input parameters 'key' from param or json http request
@@ -65,9 +61,9 @@ def main(request=None):
 
     if domain.startswith('www.'):
         domain=domain.replace('www.', '')
-        
+
     process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
-
+    
 main()
