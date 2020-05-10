@@ -1,0 +1,13 @@
+  
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - kraken_crawler_v1
+  - --source=.
+  - --trigger-http
+  - --runtime=python37
+  - --allow-unauthenticated
+  - --entry-point=main
+

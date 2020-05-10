@@ -1,0 +1,5 @@
+scrapy
+extruct
+bs4
+extraction
+nested-lookup

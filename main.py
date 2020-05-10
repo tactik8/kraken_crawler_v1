@@ -9,7 +9,6 @@ from extractors import extract_all
 
 fullrecords = []
 
-
 def store_records(record):
 
 
@@ -39,26 +38,18 @@ class DemoSpider(CrawlSpider):
         #print(json.dumps(record, indent=4))
         store_records(record)
 
-'''
-process = CrawlerProcess(settings={
-    "FEEDS": {
-        "items.json": {"format": "json"},
-    },
-})
+
+def main(request=None): 
+
+    process = CrawlerProcess(settings={
+        "FEEDS": {
+            "items.json": {"format": "json"},
+        },
+    })
 
 
-process.crawl(DemoSpider)
-process.start() # the script will block here until the crawling is finished
-'''
+    process.crawl(DemoSpider, url="https://www.instrumart.com/products/24474/rosemount-3051c-smart-pressure-transmitter", domain='instrumart.com')
+    process.start() 
+    return
 
-
-process = CrawlerProcess(settings={
-    "FEEDS": {
-        "items.json": {"format": "json"},
-    },
-})
-
-
-# 'followall' is the name of one of the spiders of the project.
-process.crawl(DemoSpider, url="https://www.instrumart.com/products/24474/rosemount-3051c-smart-pressure-transmitter", domain='instrumart.com')
-process.start() # the script will block here until the crawling is finished
+main()
