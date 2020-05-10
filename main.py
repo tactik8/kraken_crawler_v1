@@ -19,7 +19,6 @@ def store_records(record):
 
 class DemoSpider(CrawlSpider):
     name = "demo"
-    CONCURRENT_REQUESTS = 100
 
     #allowed_domains = ["instrumart.com"]
     #start_urls = ["https://www.instrumart.com/products/24474/rosemount-3051c-smart-pressure-transmitter"]
@@ -53,14 +52,11 @@ def get_input_params(request, key):
         return None
 
 def main(request=None): 
-
     process = CrawlerProcess(settings={
         "FEEDS": {
             "items.json": {"format": "json"},
         },
     })
-
-
 
     url = get_input_params(request, 'url')
     
@@ -69,7 +65,7 @@ def main(request=None):
 
     if domain.startswith('www.'):
         domain=domain.replace('www.', '')
-
+        
     process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
