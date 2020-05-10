@@ -2,8 +2,8 @@ import scrapy
 from scrapy.crawler import CrawlerProcess
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
-import extruct
-import json
+from urllib.parse import urlparse
+
 
 from extractors import extract_all
 
@@ -39,6 +39,19 @@ class DemoSpider(CrawlSpider):
         store_records(record)
 
 
+def get_input_params(request, key):
+    # Retrive input parameters 'key' from param or json http request
+
+    request_json = request.get_json()
+    
+    if request.args and key in request.args:
+        return request.args[key]
+    elif request_json and key in request_json:
+        return request_json[key]
+    else:
+        print('get_input_params - Could not get input parameter')
+        return None
+
 def main(request=None): 
 
     process = CrawlerProcess(settings={
@@ -48,7 +61,16 @@ def main(request=None):
     })
 
 
-    process.crawl(DemoSpider, url="https://www.instrumart.com/products/24474/rosemount-3051c-smart-pressure-transmitter", domain='instrumart.com')
+
+    url = get_input_params(request, 'url')
+    
+    parsed = urlparse(url)
+    domain = parsed.netloc
+
+    if domain.startswith('www.'):
+        domain=domain.replace('www.', '')
+
+    process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
 
