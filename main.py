@@ -48,15 +48,17 @@ def get_input_params(request, key):
         print('get_input_params - Could not get input parameter')
         return None
 
-def main(request): 
+def main(request=None, INPUT={}, url=None): 
     process = CrawlerProcess(settings={
         "FEEDS": {
             "items.json": {"format": "json"},
         },
     })
 
-    url = get_input_params(request, 'url')
-    INPUT = get_input_params(request, 'INPUT')
+    if request:
+        url = get_input_params(request, 'url')
+        INPUT = get_input_params(request, 'INPUT')
+    
     url2 = INPUT.get('url', None)
     if url is None and url2 is not None:
         url = url2
