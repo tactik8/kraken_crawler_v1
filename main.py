@@ -56,7 +56,12 @@ def main(request):
     })
 
     url = get_input_params(request, 'url')
-    
+    INPUT = get_input_params(request, 'INPUT')
+    url2 = INPUT.get('url', None)
+    if url is None and url2 is not None:
+        url = url2
+
+
     parsed = urlparse(url)
     domain = parsed.netloc
 
