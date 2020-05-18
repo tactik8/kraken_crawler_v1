@@ -3,7 +3,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 from urllib.parse import urlparse
-
+import apify
 
 from extractors import extract_all
 
@@ -32,6 +32,8 @@ class DemoSpider(CrawlSpider):
         record = extract_all(response.url, response.text)
         #print(json.dumps(record, indent=4))
         store_records(record)
+        apify.pushData(record)
+
 
 def get_input_params(request, key):
     # Retrive input parameters 'key' from param or json http request
