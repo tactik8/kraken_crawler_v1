@@ -70,6 +70,9 @@ def main(request=None, INPUT={}, url=None):
     if domain.startswith('www.'):
         domain=domain.replace('www.', '')
 
+    if domain is None:
+        domain = 'instrumart.com'
+
     process.crawl(DemoSpider, url=url, domain=domain)
     process.start() 
     return
